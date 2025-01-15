@@ -142,6 +142,40 @@ class Alumni {
       throw new Error("Gagal mencari alumni: " + err.message);
     }
   }
+
+  static async findByStatus(status) {
+    const query = `SELECT * FROM alumni WHERE status = ?`;
+
+    try {
+      const results = await new Promise((resolve, reject) => {
+        db.query(query, [status], (err, results) => {
+          if (err) reject(err);
+          resolve(results);
+        });
+      });
+
+      return results; // Mengembalikan data alumni yang sesuai dengan status
+    } catch (err) {
+      throw new Error("Gagal mengambil alumni berdasarkan status: " + err.message);
+    }
+  }
+
+  static async delete(id) {
+    const query = `DELETE FROM alumni WHERE id = ?`;
+
+    try {
+      const result = await new Promise((resolve, reject) => {
+        db.query(query, [id], (err, result) => {
+          if (err) reject(err);
+          resolve(result);
+        });
+      });
+
+      return result.affectedRows > 0; // Mengembalikan true jika ada alumni yang dihapus
+    } catch (err) {
+      throw new Error("Gagal menghapus alumni: " + err.message);
+    }
+  }
 }
 
 // export class Alumni

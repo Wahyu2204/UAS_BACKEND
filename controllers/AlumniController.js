@@ -175,6 +175,79 @@ class AlumniController {
       });
     }
   }
+
+  // Menambahkan method untuk mencari alumni berdasarkan status 'freshGraduate'
+  async freshGraduate(req, res) {
+    try {
+      const alumni = await Alumni.findByStatus('freshGraduate');
+
+      if (alumni.length === 0) {
+        return res.status(404).json({
+          message: "Tidak ada alumni dengan status 'freshGraduate'",
+        });
+      }
+
+      res.json({
+        message: "Menampilkan alumni dengan status 'freshGraduate'",
+        data: alumni,
+      });
+    } catch (error) {
+      console.error("Terjadi kesalahan:", error);
+      res.status(500).json({
+        message: "Terjadi kesalahan saat mengambil data alumni berdasarkan status 'freshGraduate'",
+        error: error.message,
+      });
+    }
+  }
+
+  // Menambahkan method untuk mencari alumni berdasarkan status 'kerja'
+  async kerja(req, res) {
+    try {
+      const alumni = await Alumni.findByStatus('kerja');
+
+      if (alumni.length === 0) {
+        return res.status(404).json({
+          message: "Tidak ada alumni dengan status 'kerja'",
+        });
+      }
+
+      res.json({
+        message: "Menampilkan alumni dengan status 'kerja'",
+        data: alumni,
+      });
+    } catch (error) {
+      console.error("Terjadi kesalahan:", error);
+      res.status(500).json({
+        message: "Terjadi kesalahan saat mengambil data alumni berdasarkan status 'kerja'",
+        error: error.message,
+      });
+    }
+  }
+
+  // Menambahkan method untuk mencari alumni berdasarkan status 'menganggur'
+  async menganggur(req, res) {
+    try {
+      const alumni = await Alumni.findByStatus('menganggur');
+
+      if (alumni.length === 0) {
+        return res.status(404).json({
+          message: "Tidak ada alumni dengan status 'menganggur'",
+        });
+      }
+
+      res.json({
+        message: "Menampilkan alumni dengan status 'menganggur'",
+        data: alumni,
+      });
+    } catch (error) {
+      console.error("Terjadi kesalahan:", error);
+      res.status(500).json({
+        message: "Terjadi kesalahan saat mengambil data alumni berdasarkan status 'menganggur'",
+        error: error.message,
+      });
+    }
+  }
+
 }
 
 // membuat object AlumniController
