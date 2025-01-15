@@ -15,12 +15,12 @@ router.get("/", (req, res) => {
 });
 
 // Membuat routing alumni
-router.get("/lulusan", AlumniController.index);
-router.post("/lulusan", AlumniController.store);
-router.put("/lulusan/:id", AlumniController.update);
-router.delete("/lulusan/:id", AlumniController.delete);
-router.get("/lulusan/:id", AlumniController.show);
-router.get("/lulusan/search", AlumniController.search);
+router.get("/alumni", AlumniController.index);
+router.post("/alumni", AlumniController.store);
+router.put("/alumni/:id", AlumniController.update);
+router.delete("/alumni/:id", AlumniController.delete);
+router.get("/alumni/:id", AlumniController.show);
+router.get("/alumni/search", AlumniController.search);
 
 // export router
 module.exports = router;

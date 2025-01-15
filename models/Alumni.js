@@ -20,8 +20,14 @@ class Alumni {
   }
 
   // Fungsi untuk menambahkan data alumni baru
+  // Fungsi untuk menambahkan alumni
   static async create(data) {
     const { nama, hp, alamat, tahunLulus, status, perusahaan, jabatan } = data;
+
+    // Validasi input untuk nama
+    if (!nama || !nama.trim()) {
+      throw new Error("Nama alumni harus diisi!");
+    }
 
     const query = `INSERT INTO alumni (nama, hp, alamat, tahunLulus, status, perusahaan, jabatan) VALUES (?, ?, ?, ?, ?, ?, ?)`;
 
@@ -41,11 +47,12 @@ class Alumni {
         });
       });
 
-      return rows[0]; // Mengembalikan data alumni yang baru dimasukkan
+      return rows[0]; // Mengembalikan alumni yang baru dimasukkan
     } catch (err) {
       throw new Error("Gagal menambahkan alumni: " + err.message);
     }
   }
+
 
   // Fungsi untuk mengupdate data alumni
   static async update(id, data) {
@@ -81,7 +88,7 @@ class Alumni {
 
   static async findById(id) {
     const query = `SELECT * FROM alumni WHERE id = ?`;
-
+  
     try {
       const result = await new Promise((resolve, reject) => {
         db.query(query, [id], (err, result) => {
@@ -89,12 +96,17 @@ class Alumni {
           resolve(result);
         });
       });
-
-      return result.length > 0 ? result[0] : null; // Mengembalikan alumni yang ditemukan, atau null jika tidak ada
+  
+      if (result.length === 0) {
+        throw new Error("Alumni tidak ditemukan");
+      }
+  
+      return result[0]; // Mengembalikan alumni yang ditemukan
     } catch (err) {
       throw new Error("Gagal mengambil data alumni: " + err.message);
     }
   }
+  
 
   // Fungsi untuk mencari alumni berdasarkan kriteria
   static async search(queryParams) {

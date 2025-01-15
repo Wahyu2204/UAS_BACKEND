@@ -8,10 +8,10 @@ require("dotenv").config();
 const { DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE } = process.env;
 
 /**
- * Membuat koneksi database menggunakan method createConnection
- * Method menerima parameter object: host, user, password, database
+ * Membuat pool koneksi database menggunakan method createPool
+ * Method ini lebih efisien untuk aplikasi dengan banyak koneksi
  */
-const db = mysql.createConnection({
+const db = mysql.createPool({
   host: DB_HOST,
   user: DB_USERNAME,
   password: DB_PASSWORD,
@@ -19,17 +19,15 @@ const db = mysql.createConnection({
 });
 
 /**
- * Menghubungkan ke database menggunakan method connect
- * Menerima parameter callback
+ * Mengecek koneksi pool
  */
-db.connect((err) => {
+db.getConnection((err, connection) => {
   if (err) {
-    console.log("Error connecting " + err.stack);
-    return;
-  } else {
-    console.log("Connected to database");
+    console.error("Error connecting to database: " + err.stack);
     return;
   }
+  console.log("Connected to database");
+  connection.release();  // Lepaskan koneksi setelah selesai
 });
 
 module.exports = db;

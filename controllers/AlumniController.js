@@ -8,11 +8,11 @@ class AlumniController {
     // memanggil method static all dengan async await.
     try {
       // memanggil method static all dengan async await.
-      const lulusan = await Alumni.all();
+      const alumni = await Alumni.all();
 
       const data = {
         message: "Menampilkan semua alumni",
-        data: lulusan,
+        data: alumni,
       };
 
       res.json(data);
@@ -40,16 +40,16 @@ class AlumniController {
         });
       }
   
-      const lulusan = await Alumni.create({ nama, hp, alamat, tahunLulus, status, perusahaan, jabatan });
+      const alumni = await Alumni.create({ nama, hp, alamat, tahunLulus, status, perusahaan, jabatan });
   
       res.json({
         message: "Menambahkan alumni berhasil",
-        data: lulusan, // Data mahasiswa yang baru ditambahkan
+        data: alumni, // Data mahasiswa yang baru ditambahkan
       });
     } catch (error) {
       console.error("Terjadi kesalahan:", error);
       res.status(500).json({
-        message: "Terjadi kesalahan saat menambahkan lulusan",
+        message: "Terjadi kesalahan saat menambahkan alumni",
         error: error.message,
       });
     }
